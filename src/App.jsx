@@ -3,8 +3,13 @@ import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'fra
 import { Testimonials } from './components/ui/testimonials'
 import { GlassHero } from './components/ui/glass-hero'
 import { GlassAbout } from './components/ui/glass-about'
-
-const SplineLazy = lazy(() => import('@splinetool/react-spline'))
+import logoSrc from './assets/logo.png'
+import {
+  HoverSlider,
+  HoverSliderImage,
+  HoverSliderImageWrap,
+  TextStaggerHover,
+} from './components/ui/animated-slideshow'
 
 // --- Error Boundary ---
 class ErrorBoundary extends React.Component {
@@ -41,7 +46,7 @@ const RotatingText = () => {
   useEffect(() => {
     let timer
     const currentWord = words[index]
-    
+
     if (isDeleting) {
       timer = setTimeout(() => {
         setDisplayText(currentWord.substring(0, displayText.length - 1))
@@ -87,13 +92,14 @@ const Navbar = () => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 h-[48px] bg-white/72 backdrop-blur-[20px] saturate-[180%] transition-colors duration-200 ${
-        hasScrolled ? 'border-b border-black/[0.08]' : 'border-b border-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 h-[48px] bg-white/72 backdrop-blur-[20px] saturate-[180%] transition-colors duration-200 ${hasScrolled ? 'border-b border-black/[0.08]' : 'border-b border-transparent'
+        }`}
     >
       <div className="max-w-[980px] mx-auto h-full px-6 flex items-center justify-between">
-        <div className="text-[15px] font-semibold text-text-1">Farhan Aslam</div>
-        
+        <a href="#" className="flex-shrink-0">
+          <img src={logoSrc} alt="Farhan Aslam" className="h-[32px] w-auto" />
+        </a>
+
         <div className="hidden md:flex items-center gap-8">
           {['Work', 'Testimonials', 'About', 'Skills', 'Contact'].map((item) => (
             <a
@@ -127,18 +133,18 @@ const Hero = () => {
 
   const itemVariant = {
     hidden: { opacity: 0, y: 28 },
-    show: { 
-      opacity: 1, 
+    show: {
+      opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: EASING } 
+      transition: { duration: 0.7, ease: EASING }
     }
   }
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center pt-[120px] pb-[60px] bg-white">
-      <motion.div 
+    <section className="min-h-screen flex flex-col items-center justify-center text-center pt-24 md:pt-[120px] pb-10 md:pb-[60px] bg-white">
+      <motion.div
         variants={heroVariants}
-        initial="hidden" 
+        initial="hidden"
         animate="show"
         style={{ opacity: heroOpacity, y: heroY }}
         className="w-full"
@@ -170,46 +176,7 @@ const Hero = () => {
           </button>
         </motion.div>
 
-        {/* Added GlassHero for premium aesthetic */}
-        <motion.div 
-          variants={itemVariant}
-          className="mt-16 w-full max-w-[600px] mx-auto h-[400px] relative"
-        >
-          <Suspense fallback={<div className="absolute inset-0 bg-surface animate-pulse rounded-card" />}>
-            <GlassHero />
-          </Suspense>
-        </motion.div>
       </motion.div>
-    </section>
-  )
-}
-
-const SplineHero = () => {
-  const [loaded, setLoaded] = useState(false)
-  
-  return (
-    <section id="spline-hero" className="w-full h-[500px] md:h-[700px] bg-white relative overflow-hidden">
-      <div className="max-w-[980px] mx-auto h-full px-6">
-        <div className="w-full h-full rounded-spline overflow-hidden bg-surface relative">
-          <Suspense fallback={<div className="absolute inset-0 bg-surface animate-pulse" />}>
-            {!loaded && <div className="absolute inset-0 bg-surface animate-pulse z-10" />}
-            <ErrorBoundary fallback={<div className="absolute inset-0 bg-surface flex items-center justify-center text-text-2 text-sm">3D Scene unavailable</div>}>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: loaded ? 1 : 0 }}
-                transition={{ duration: 0.8 }}
-                className="w-full h-full"
-              >
-                <SplineLazy
-                  scene="https://prod.spline.design/AYsj3ZlrVZcSwIAXXyglAVpT/scene.splinecode" 
-                  style={{ width: '100%', height: '100%' }}
-                  onLoad={() => setLoaded(true)}
-                />
-              </motion.div>
-            </ErrorBoundary>
-          </Suspense>
-        </div>
-      </div>
     </section>
   )
 }
@@ -226,66 +193,254 @@ const SectionLabel = ({ text }) => (
   </motion.p>
 )
 
-const Work = () => {
-  const cardVariant = {
-    hidden: { opacity: 0, y: 32 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: EASING } 
-    }
-  }
+const SLIDES = [
+  {
+    id: 'slide-1',
+    title: 'frontend dev',
+    imageUrl:
+      'https://images.unsplash.com/photo-1654618977232-a6c6dea9d1e8?q=80&w=2486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    id: 'slide-2',
+    title: 'backend dev',
+    imageUrl:
+      'https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    id: 'slide-3',
+    title: 'UI UX design',
+    imageUrl:
+      'https://images.unsplash.com/photo-1688733720228-4f7a18681c4f?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    id: 'slide-4',
+    title: 'video editing',
+    imageUrl:
+      'https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    id: 'slide-5',
+    title: 'SEO optimization',
+    imageUrl:
+      'https://images.unsplash.com/photo-1726066012698-bb7a3abce786?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+]
 
+const ServicesSlider = () => {
   return (
-    <section id="work" className="py-section-v md:py-[140px] px-6 bg-white max-w-[980px] mx-auto">
-      <SectionLabel text="Selected Work" />
-
-      <motion.div 
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-60px" }}
-        className="space-y-5"
-      >
-        {/* Featured Project */}
-        <motion.div 
-          variants={cardVariant}
-          className="bg-surface rounded-card p-7 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center hover:scale-[1.008] transition-transform duration-400 ease-out cursor-pointer"
-        >
-          <div className="w-full md:w-1/2">
-            <p className="text-[11px] text-text-2 uppercase tracking-wider mb-4">Case Study · Web App</p>
-            <h3 className="text-[28px] font-bold text-text-1 mb-3">Project Alpha</h3>
-            <p className="text-[15px] text-text-2 max-w-[380px] leading-relaxed mb-6">
-              A comprehensive digital transformation for a leading financial institution, focusing on accessibility and speed.
-            </p>
-            <span className="text-[14px] text-accent font-semibold hover:tracking-[0.02em] transition-all duration-200">
-              View project →
-            </span>
+    <section id="services" className="bg-white">
+      <HoverSlider className="min-h-[50vh] md:min-h-[70vh] place-content-center py-16 md:py-[140px] px-6 md:px-12 bg-white">
+        <div className="max-w-[980px] mx-auto">
+          <SectionLabel text="My Services" />
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 md:gap-16">
+            <div className="flex flex-col space-y-3 md:space-y-5">
+              {SLIDES.map((slide, index) => (
+                <TextStaggerHover
+                  key={slide.id}
+                  index={index}
+                  className="cursor-pointer text-[clamp(20px,4vw,38px)] font-bold uppercase tracking-[-0.03em] text-text-1"
+                  text={slide.title}
+                />
+              ))}
+            </div>
+            <HoverSliderImageWrap className="w-full md:w-[480px] aspect-[4/3] rounded-card overflow-hidden flex-shrink-0">
+              {SLIDES.map((slide, index) => (
+                <div key={slide.id}>
+                  <HoverSliderImage
+                    index={index}
+                    imageUrl={slide.imageUrl}
+                    src={slide.imageUrl}
+                    alt={slide.title}
+                    className="size-full object-cover rounded-card"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </HoverSliderImageWrap>
           </div>
-          <div className="w-full md:flex-1 aspect-[16/9] bg-[#E0E0E5] rounded-img" />
-        </motion.div>
-
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {[1, 2].map((i) => (
-            <motion.div 
-              key={i}
-              variants={cardVariant}
-              className="bg-surface rounded-card p-8 hover:scale-[1.01] transition-transform duration-350 ease-out cursor-pointer"
-            >
-              <div className="aspect-[4/3] bg-[#E0E0E5] rounded-[12px] mb-6" />
-              <p className="text-[11px] text-text-2 uppercase tracking-wider">Mobile App · UX Design</p>
-              <h3 className="text-[22px] font-bold text-text-1 mt-2">Design System {i}</h3>
-              <p className="text-[14px] text-text-2 mt-2 leading-relaxed">
-                Scalable design components built for performance and consistency.
-              </p>
-              <div className="text-[13px] text-accent font-semibold mt-4">View project →</div>
-            </motion.div>
-          ))}
         </div>
-      </motion.div>
+      </HoverSlider>
     </section>
   )
 }
+
+
+const PROJECTS = [
+  // --- UI/UX Design ---
+  {
+    id: 'uiux-1',
+    category: 'UI/UX Design',
+    tag: 'Figma · Mobile App',
+    title: 'Banking App Redesign',
+    description: 'Complete UI/UX overhaul for a modern banking experience — focused on accessibility, trust, and speed.',
+    link: 'https://figma.com',
+    linkLabel: 'View on Figma',
+    featured: true,
+  },
+  {
+    id: 'uiux-2',
+    category: 'UI/UX Design',
+    tag: 'Figma · Dashboard',
+    title: 'E-Commerce Dashboard',
+    description: 'Admin panel with real-time analytics, inventory management, and clean data visualization.',
+    link: 'https://dribbble.com',
+    linkLabel: 'View on Dribbble',
+  },
+  {
+    id: 'uiux-3',
+    category: 'UI/UX Design',
+    tag: 'Adobe XD · SaaS',
+    title: 'SaaS Landing Page',
+    description: 'Conversion-optimized landing page design for a project management tool.',
+    link: 'https://behance.net',
+    linkLabel: 'View on Behance',
+  },
+  // --- Web Design ---
+  {
+    id: 'web-1',
+    category: 'Web Design',
+    tag: 'React · Tailwind CSS',
+    title: 'Elite Rugby',
+    description: 'High-performance landing page with dynamic animations and a bold dark-mode design system.',
+    link: 'https://elite-rugby-website.vercel.app/',
+    linkLabel: 'View Live ↗',
+    featured: true,
+  },
+  {
+    id: 'web-2',
+    category: 'Web Design',
+    tag: 'Next.js · Framer Motion',
+    title: 'Agency Portfolio',
+    description: 'A minimal, Apple-inspired creative agency site with smooth scroll animations.',
+    link: 'https://example.com',
+    linkLabel: 'View Live ↗',
+  },
+  {
+    id: 'web-3',
+    category: 'Web Design',
+    tag: 'React · Vite',
+    title: 'Restaurant Website',
+    description: 'Elegant restaurant website with online reservations and a responsive menu gallery.',
+    link: 'https://example.com',
+    linkLabel: 'View Live ↗',
+  },
+]
+
+const TABS = ['All', 'UI/UX Design', 'Web Design']
+
+const Work = () => {
+  const [activeTab, setActiveTab] = useState('All')
+
+  const cardVariant = {
+    hidden: { opacity: 0, y: 32 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: EASING }
+    }
+  }
+
+  const filtered = activeTab === 'All'
+    ? PROJECTS
+    : PROJECTS.filter((p) => p.category === activeTab)
+
+  const featured = filtered.find((p) => p.featured)
+  const rest = filtered.filter((p) => !p.featured)
+
+  return (
+    <section id="work" className="py-16 md:py-[140px] px-6 bg-white max-w-[980px] mx-auto">
+      <SectionLabel text="Selected Work" />
+
+      {/* Tabs */}
+      <div className="flex items-center gap-2 mb-10 flex-wrap">
+        {TABS.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`text-[13px] font-medium px-4 py-2 rounded-full border transition-all duration-200 ${activeTab === tab
+              ? 'bg-text-1 text-white border-text-1'
+              : 'bg-transparent text-text-2 border-black/[0.08] hover:border-black/20 hover:text-text-1'
+              }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.35, ease: EASING }}
+          className="space-y-5"
+        >
+          {/* Featured Project */}
+          {featured && (
+            <motion.div
+              variants={cardVariant}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="bg-surface rounded-card p-7 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center hover:scale-[1.008] transition-transform duration-400 ease-out group"
+            >
+              <div className="w-full md:w-1/2">
+                <p className="text-[11px] text-text-2 uppercase tracking-wider mb-4">{featured.tag}</p>
+                <h3 className="text-[24px] md:text-[28px] font-bold text-text-1 mb-3">{featured.title}</h3>
+                <p className="text-[15px] text-text-2 max-w-[380px] leading-relaxed mb-6">
+                  {featured.description}
+                </p>
+                <a
+                  href={featured.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[14px] text-accent font-semibold hover:tracking-[0.02em] transition-all duration-200"
+                >
+                  {featured.linkLabel}
+                </a>
+              </div>
+              <div className="w-full md:flex-1 aspect-[16/9] bg-[#E0E0E5] rounded-img overflow-hidden" />
+            </motion.div>
+          )}
+
+          {/* Project Grid */}
+          {rest.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {rest.map((project) => (
+                <motion.div
+                  key={project.id}
+                  variants={cardVariant}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="bg-surface rounded-card p-7 md:p-8 hover:scale-[1.01] transition-transform duration-350 ease-out group"
+                >
+                  <div className="aspect-[4/3] bg-[#E0E0E5] rounded-[12px] mb-6 overflow-hidden" />
+                  <p className="text-[11px] text-text-2 uppercase tracking-wider">{project.tag}</p>
+                  <h3 className="text-[20px] md:text-[22px] font-bold text-text-1 mt-2">{project.title}</h3>
+                  <p className="text-[14px] text-text-2 mt-2 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[13px] text-accent font-semibold mt-4 hover:tracking-[0.02em] transition-all duration-200"
+                  >
+                    {project.linkLabel}
+                  </a>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </section>
+  )
+}
+
 
 const Stat = ({ number, label }) => {
   const ref = useRef(null)
@@ -297,10 +452,10 @@ const Stat = ({ number, label }) => {
       let start = 0
       const end = parseInt(number)
       if (isNaN(end)) return
-      
+
       const duration = 1200
       const increment = end / (duration / 16)
-      
+
       const timer = setInterval(() => {
         start += increment
         if (start >= end) {
@@ -326,11 +481,11 @@ const Stat = ({ number, label }) => {
 
 const About = () => {
   return (
-    <section id="about" className="py-section-v md:py-[140px] bg-surface">
+    <section id="about" className="py-16 md:py-[140px] bg-surface">
       <div className="max-w-[980px] mx-auto px-6">
         <div className="max-w-[720px] mx-auto text-center">
           <SectionLabel text="About Me" />
-          
+
           <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-20 mb-20">
             <Stat number="50+" label="Projects shipped" />
             <Stat number="4" label="Years experience" />
@@ -372,7 +527,7 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" className="py-section-v md:py-[140px] px-6 bg-white">
+    <section id="skills" className="py-16 md:py-[140px] px-6 bg-white">
       <div className="max-w-[980px] mx-auto px-6">
         <div className="max-w-[640px] mx-auto">
           <SectionLabel text="Skills & Tools" />
@@ -399,7 +554,7 @@ const Skills = () => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-section-v md:py-[140px] bg-surface text-center px-6">
+    <section id="contact" className="py-16 md:py-[140px] bg-surface text-center px-6">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -407,11 +562,11 @@ const Contact = () => {
         transition={{ duration: 0.7, ease: EASING }}
         className="max-w-[980px] mx-auto"
       >
-        <h2 className="text-[52px] font-bold text-text-1 tracking-tight">Let's work together.</h2>
-        <p className="text-[19px] text-text-2 mt-4">Open to freelance projects and full-time roles.</p>
-        
-        <a 
-          href="mailto:hello@farhanaslam.com" 
+        <h2 className="text-[32px] md:text-[52px] font-bold text-text-1 tracking-tight">Let's work together.</h2>
+        <p className="text-[16px] md:text-[19px] text-text-2 mt-4">Open to freelance projects and full-time roles.</p>
+
+        <a
+          href="mailto:hello@farhanaslam.com"
           className="inline-block mt-12 text-[24px] font-medium text-text-1 underline underline-offset-4 hover:text-accent transition-colors duration-250"
         >
           hello@farhanaslam.com
@@ -419,9 +574,9 @@ const Contact = () => {
 
         <div className="mt-10 flex items-center justify-center gap-10">
           {['Dribbble', 'LinkedIn', 'Twitter'].map((social) => (
-            <a 
-              key={social} 
-              href="#" 
+            <a
+              key={social}
+              href="#"
               className="text-[14px] text-text-2 hover:text-text-1 transition-colors duration-200"
             >
               {social}
@@ -459,18 +614,18 @@ const SectionWrapper = ({ children, id, className = "" }) => (
 
 export default function App() {
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
+    <motion.div
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="font-inter selection:bg-accent/30"
     >
       <Navbar />
-      
+
       <main>
         <Hero />
-        <SplineHero />
-        
+        <ServicesSlider />
+
         <SectionWrapper id="work">
           <Work />
         </SectionWrapper>
