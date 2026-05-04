@@ -503,11 +503,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="hidden md:block mt-20 max-w-[560px] mx-auto w-full h-[400px] rounded-card overflow-hidden bg-[#EAEAEC] relative">
-            <Suspense fallback={<div className="absolute inset-0 bg-[#EAEAEC] animate-pulse" />}>
-              <GlassAbout />
-            </Suspense>
-          </div>
+
         </div>
       </div>
     </section>
@@ -517,13 +513,10 @@ const About = () => {
 const Skills = () => {
   const skills = [
     { name: 'Figma', category: 'Design & Prototyping' },
-    { name: 'React', category: 'Frontend Development' },
+    { name: 'React.js', category: 'Frontend Development' },
     { name: 'Tailwind CSS', category: 'Frontend Development' },
-    { name: 'Spline', category: '3D & Motion' },
     { name: 'Framer', category: 'Interaction Design' },
-    { name: 'After Effects', category: 'Motion Graphics' },
-    { name: 'Webflow', category: 'No-code Development' },
-    { name: 'Figma Variants', category: 'Design Systems' },
+    { name: 'Next.js', category: 'Frontend Development' },
   ]
 
   return (
@@ -566,14 +559,14 @@ const Contact = () => {
         <p className="text-[16px] md:text-[19px] text-text-2 mt-4">Open to freelance projects and full-time roles.</p>
 
         <a
-          href="mailto:hello@farhanaslam.com"
+          href="mailto:farhanaslam1992@gmail.com"
           className="inline-block mt-12 text-[24px] font-medium text-text-1 underline underline-offset-4 hover:text-accent transition-colors duration-250"
         >
-          hello@farhanaslam.com
+          farhanaslam1992@gmail.com
         </a>
 
-        <div className="mt-10 flex items-center justify-center gap-10">
-          {['Dribbble', 'LinkedIn', 'Twitter'].map((social) => (
+        <div className="mt-10 flex items-center justify-center gap-5">
+          {['GitHub', 'Instagram', 'LinkedIn', 'Facebook'].map((social) => (
             <a
               key={social}
               href="#"
