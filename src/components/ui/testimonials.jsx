@@ -53,7 +53,7 @@ const thirdColumn = testimonials.slice(5, 7);
 export const Testimonials = () => {
   return (
     <section className="bg-background my-20 relative overflow-hidden">
-      <div className="max-w-[980px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,8 +68,8 @@ export const Testimonials = () => {
           </div>
 
           <h2 className="text-[40px] md:text-[62px] font-bold text-text-1 tracking-tight leading-[1.1]">
-            What my <br />
-            <span className="text-accent">clients say.</span>
+            What My <br />
+            <span className="text-accent">Clients Say.</span>
           </h2>
           <p className="text-[19px] text-text-2 mt-8 leading-relaxed max-w-[500px] mx-auto">
             Real feedback from professionals and clients I've had the pleasure of working with.

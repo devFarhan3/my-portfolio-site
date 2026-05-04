@@ -2,16 +2,16 @@
 
 import React, { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { 
-  MeshTransmissionMaterial, 
-  Environment, 
-  ContactShadows, 
+import {
+  MeshTransmissionMaterial,
+  Environment,
+  ContactShadows,
   Float
 } from '@react-three/drei'
 
 function GlassSphere() {
   const meshRef = useRef()
-  
+
   useFrame((state) => {
     const time = state.clock.getElapsedTime()
     if (meshRef.current) {

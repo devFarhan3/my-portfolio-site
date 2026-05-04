@@ -9,10 +9,10 @@
   --text-1: #1D1D1F;
   --text-2: #6E6E73;
   --surface: #F5F5F7;
-  --accent: #D4A853;
+  --accent: #D4AF37;
   --border: rgba(0,0,0,0.07);
-  --gradient-color: #D4A853;
-  --sparkles-color: #D4A853;
+  --gradient-color: #D4AF37;
+  --sparkles-color: #D4AF37;
 }
 
 .dark {
@@ -20,9 +20,9 @@
   --text-1: #F5F5F7;
   --text-2: #86868B;
   --surface: #1D1D1F;
-  --accent: #D4A853;
+  --accent: #D4AF37;
   --border: rgba(255,255,255,0.1);
-  --gradient-color: #D4A853;
+  --gradient-color: #D4AF37;
   --sparkles-color: #ffffff;
 }
 
