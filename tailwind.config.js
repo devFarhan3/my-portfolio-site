@@ -7,7 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg-primary': '#FFFFFF',
+        background: '#FFFFFF',
+        foreground: '#1D1D1F',
+        primary: {
+          DEFAULT: '#D4A853',
+          foreground: '#FFFFFF',
+        },
         'text-1': '#1D1D1F',
         'text-2': '#6E6E73',
         'surface': '#F5F5F7',

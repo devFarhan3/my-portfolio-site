@@ -11,6 +11,19 @@
   --surface: #F5F5F7;
   --accent: #D4A853;
   --border: rgba(0,0,0,0.07);
+  --gradient-color: #D4A853;
+  --sparkles-color: #D4A853;
+}
+
+.dark {
+  --bg: #000000;
+  --text-1: #F5F5F7;
+  --text-2: #86868B;
+  --surface: #1D1D1F;
+  --accent: #D4A853;
+  --border: rgba(255,255,255,0.1);
+  --gradient-color: #D4A853;
+  --sparkles-color: #ffffff;
 }
 
 html {

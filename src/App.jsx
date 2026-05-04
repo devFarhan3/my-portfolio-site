@@ -1,5 +1,8 @@
 import React, { useRef, useState, useEffect, lazy, Suspense } from 'react'
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
+import { Testimonials } from './components/ui/testimonials'
+import { GlassHero } from './components/ui/glass-hero'
+import { GlassAbout } from './components/ui/glass-about'
 
 const SplineLazy = lazy(() => import('@splinetool/react-spline'))
 
@@ -73,9 +76,10 @@ const Navbar = () => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
+    const unsubscribe = scrollY.onChange((latest) => {
       setHasScrolled(latest > 20)
     })
+    return () => unsubscribe()
   }, [scrollY])
 
   return (
@@ -88,10 +92,10 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-[980px] mx-auto h-full px-6 flex items-center justify-between">
-        <div className="text-[15px] font-semibold text-text-1">Your Name</div>
+        <div className="text-[15px] font-semibold text-text-1">Farhan Aslam</div>
         
         <div className="hidden md:flex items-center gap-8">
-          {['Work', 'About', 'Skills', 'Contact'].map((item) => (
+          {['Work', 'Testimonials', 'About', 'Skills', 'Contact'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -165,6 +169,16 @@ const Hero = () => {
             Get in touch →
           </button>
         </motion.div>
+
+        {/* Added GlassHero for premium aesthetic */}
+        <motion.div 
+          variants={itemVariant}
+          className="mt-16 w-full max-w-[600px] mx-auto h-[400px] relative"
+        >
+          <Suspense fallback={<div className="absolute inset-0 bg-surface animate-pulse rounded-card" />}>
+            <GlassHero />
+          </Suspense>
+        </motion.div>
       </motion.div>
     </section>
   )
@@ -175,7 +189,7 @@ const SplineHero = () => {
   
   return (
     <section id="spline-hero" className="w-full h-[500px] md:h-[700px] bg-white relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto h-full px-6">
+      <div className="max-w-[980px] mx-auto h-full px-6">
         <div className="w-full h-full rounded-spline overflow-hidden bg-surface relative">
           <Suspense fallback={<div className="absolute inset-0 bg-surface animate-pulse" />}>
             {!loaded && <div className="absolute inset-0 bg-surface animate-pulse z-10" />}
@@ -187,8 +201,8 @@ const SplineHero = () => {
                 className="w-full h-full"
               >
                 <SplineLazy
-                  scene="https://prod.spline.design/6Wq1Q7YAnWfEL7CO/scene.splinecode" 
-                  style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
+                  scene="https://prod.spline.design/AYsj3ZlrVZcSwIAXXyglAVpT/scene.splinecode" 
+                  style={{ width: '100%', height: '100%' }}
                   onLoad={() => setLoaded(true)}
                 />
               </motion.div>
@@ -311,8 +325,6 @@ const Stat = ({ number, label }) => {
 }
 
 const About = () => {
-  const [aboutLoaded, setAboutLoaded] = useState(false)
-
   return (
     <section id="about" className="py-section-v md:py-[140px] bg-surface">
       <div className="max-w-[980px] mx-auto px-6">
@@ -320,7 +332,7 @@ const About = () => {
           <SectionLabel text="About Me" />
           
           <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-20 mb-20">
-            <Stat number="12+" label="Projects shipped" />
+            <Stat number="50+" label="Projects shipped" />
             <Stat number="4" label="Years experience" />
             <Stat number="8" label="Happy clients" />
           </div>
@@ -338,21 +350,7 @@ const About = () => {
 
           <div className="hidden md:block mt-20 max-w-[560px] mx-auto w-full h-[400px] rounded-card overflow-hidden bg-[#EAEAEC] relative">
             <Suspense fallback={<div className="absolute inset-0 bg-[#EAEAEC] animate-pulse" />}>
-              {!aboutLoaded && <div className="absolute inset-0 bg-[#EAEAEC] animate-pulse z-10" />}
-            <ErrorBoundary fallback={<div className="absolute inset-0 bg-[#EAEAEC] flex items-center justify-center text-text-2 text-sm">3D Scene unavailable</div>}>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: aboutLoaded ? 1 : 0 }}
-                transition={{ duration: 0.6 }}
-                className="w-full h-full"
-              >
-                <SplineLazy
-                  scene="https://prod.spline.design/placeholder/scene.splinecode" // Replace with your Spline scene URL
-                  style={{ width: '100%', height: '100%' }}
-                  onLoad={() => setAboutLoaded(true)}
-                />
-              </motion.div>
-            </ErrorBoundary>
+              <GlassAbout />
             </Suspense>
           </div>
         </div>
@@ -375,22 +373,24 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-section-v md:py-[140px] px-6 bg-white">
-      <div className="max-w-[640px] mx-auto">
-        <SectionLabel text="Skills & Tools" />
-        <div className="mt-8">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05, ease: EASING }}
-              className="border-b border-black/[0.06] py-5 flex justify-between items-center"
-            >
-              <span className="text-[17px] text-text-1 font-medium">{skill.name}</span>
-              <span className="text-[13px] text-text-2">{skill.category}</span>
-            </motion.div>
-          ))}
+      <div className="max-w-[980px] mx-auto px-6">
+        <div className="max-w-[640px] mx-auto">
+          <SectionLabel text="Skills & Tools" />
+          <div className="mt-8">
+            {skills.map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05, ease: EASING }}
+                className="border-b border-black/[0.06] py-5 flex justify-between items-center"
+              >
+                <span className="text-[17px] text-text-1 font-medium">{skill.name}</span>
+                <span className="text-[13px] text-text-2">{skill.category}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -411,10 +411,10 @@ const Contact = () => {
         <p className="text-[19px] text-text-2 mt-4">Open to freelance projects and full-time roles.</p>
         
         <a 
-          href="mailto:hello@yourname.com" 
+          href="mailto:hello@farhanaslam.com" 
           className="inline-block mt-12 text-[24px] font-medium text-text-1 underline underline-offset-4 hover:text-accent transition-colors duration-250"
         >
-          hello@yourname.com
+          hello@farhanaslam.com
         </a>
 
         <div className="mt-10 flex items-center justify-center gap-10">
@@ -437,7 +437,7 @@ const Footer = () => {
   return (
     <footer className="py-8 border-t border-black/[0.06] bg-white">
       <div className="max-w-[980px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-[12px] text-text-2">© 2025 Your Name</span>
+        <span className="text-[12px] text-text-2">© 2026 Farhan Aslam</span>
         <span className="text-[12px] text-text-2">Designed & built with intention</span>
       </div>
     </footer>
@@ -473,6 +473,10 @@ export default function App() {
         
         <SectionWrapper id="work">
           <Work />
+        </SectionWrapper>
+
+        <SectionWrapper id="testimonials">
+          <Testimonials />
         </SectionWrapper>
 
         <SectionWrapper id="about">
