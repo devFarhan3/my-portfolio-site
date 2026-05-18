@@ -154,7 +154,7 @@ const Navbar = ({ logoSrc }) => {
           <div className="flex items-center gap-3 z-10">
             <Magnetic strength={0.1}>
               <a
-                href="/M_Farhan_Aslam_CV.pdf"
+                href="/M_Farhan_Aslam_ATS_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`
