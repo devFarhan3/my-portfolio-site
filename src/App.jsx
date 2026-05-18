@@ -915,6 +915,63 @@ const SectionWrapper = ({ children, id, className = "" }) => (
 )
 
 export default function App() {
+  useEffect(() => {
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    if (!cursor || !ring) return;
+
+    let mx = -100, my = -100;
+    let rx = -100, ry = -100;
+    let animationFrameId = null;
+
+    const handleMouseMove = (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const animateCursor = () => {
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+
+      animationFrameId = requestAnimationFrame(animateCursor);
+    };
+
+    animateCursor();
+
+    const handleMouseOver = (e) => {
+      if (e.target.closest('a, button, [role="button"], input, select, textarea, .group\\/link, .card-hover-trigger')) {
+        document.body.classList.add('cursor-hover');
+      }
+    };
+
+    const handleMouseOut = (e) => {
+      if (e.target.closest('a, button, [role="button"], input, select, textarea, .group\\/link, .card-hover-trigger')) {
+        document.body.classList.remove('cursor-hover');
+      }
+    };
+
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseout', handleMouseOut);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      document.body.classList.remove('cursor-hover');
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
