@@ -631,7 +631,7 @@ const About = () => {
 
             <div className="w-full lg:w-1/2 text-left flex flex-col justify-center py-4">
               <h2 className="text-[40px] md:text-[56px] font-bold text-text-1 tracking-tight leading-tight mb-8">
-                Designer who <br/> ships <span className="text-accent italic font-serif">code</span>
+                Designer who <br /> ships <span className="text-accent italic font-serif">code</span>
               </h2>
               <div className="space-y-6 text-[17px] md:text-[19px] text-text-2 leading-[1.75]">
                 <p>
@@ -828,11 +828,11 @@ const Contact = () => {
             <p className="text-[17px] md:text-[19px] text-text-2 mb-12 max-w-[420px]">
               Tell me about your project and I'll get back to you within 24 hours with a proposal and timeline.
             </p>
-            
+
             <div className="space-y-6 mb-12">
               <a href="mailto:hello@farhanaslam.com" className="flex items-center gap-4 text-[17px] font-medium text-text-1 hover:text-accent transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-black/[0.04] group-hover:scale-105 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                 </div>
                 hello@farhanaslam.com
               </a>
