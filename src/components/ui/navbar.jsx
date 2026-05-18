@@ -154,7 +154,9 @@ const Navbar = ({ logoSrc }) => {
           <div className="flex items-center gap-3 z-10">
             <Magnetic strength={0.1}>
               <a
-                href="#contact"
+                href="/M_Farhan_Aslam_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`
                   hidden sm:flex items-center gap-2 rounded-full font-bold transition-all duration-700 whitespace-nowrap
                   ${hasScrolled 

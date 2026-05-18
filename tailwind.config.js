@@ -21,6 +21,7 @@ export default {
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
+        bricolage: ['"Bricolage Grotesque"', 'sans-serif'],
       },
       borderRadius: {
         'card': '20px',

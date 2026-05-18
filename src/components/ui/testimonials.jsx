@@ -67,9 +67,9 @@ export const Testimonials = () => {
             </p>
           </div>
 
-          <h2 className="text-[40px] md:text-[62px] font-bold text-text-1 tracking-tight leading-[1.1]">
+          <h2 className="text-[40px] md:text-[56px] font-bold text-text-1 tracking-tight leading-tight">
             What My <br />
-            <span className="text-accent">Clients Say.</span>
+            <span className="text-accent italic font-serif">Clients Say.</span>
           </h2>
           <p className="text-[19px] text-text-2 mt-8 leading-relaxed max-w-[500px] mx-auto">
             Real feedback from professionals and clients I've had the pleasure of working with.

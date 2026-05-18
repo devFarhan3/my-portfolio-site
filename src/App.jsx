@@ -3,7 +3,11 @@ import {
   ArrowUpRight,
   ArrowRight,
   Menu,
-  X
+  X,
+  Code,
+  Server,
+  PenTool,
+  Search
 } from 'lucide-react'
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
 import { Testimonials } from './components/ui/testimonials'
@@ -12,12 +16,18 @@ import techWeckSrc from './assets/tech-weck.png'
 import diamondSrc from './assets/diamond.png'
 import rugbySrc from './assets/rugby-web.png'
 import oneDirhamSrc from './assets/1dmockup.png'
-import farhanPic from './assets/dev-farhan.jpg'
+import farhanPic from './assets/UX Designer _ React Frontend Developer.png'
+import mystPerfumesSrc from './assets/myst-perfumes.png'
+import marcVistaSrc from './assets/marcvista.png'
+import digitalMarketingSrc from './assets/digital-marketing.jpg'
+import shieldGroupSrc from './assets/shield-group.png'
+import architecturalReliableSrc from './assets/architectural-reliable.png'
 import {
   HoverSlider,
   HoverSliderImage,
   HoverSliderImageWrap,
   TextStaggerHover,
+  useHoverSliderContext
 } from './components/ui/animated-slideshow'
 import { GLSLHills } from './components/ui/glsl-hills'
 import Navbar from './components/ui/navbar'
@@ -87,12 +97,12 @@ const Hero = () => {
   }
 
   return (
-    <section 
+    <section
       onMouseMove={handleMouseMove}
       className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden bg-white pt-24"
     >
       <GLSLHills speed={0.25} mouseX={mousePos.x} mouseY={mousePos.y} />
-      
+
       {/* Noise Overlay for Texture */}
       <div className="absolute inset-0 z-[5] pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
@@ -104,7 +114,7 @@ const Hero = () => {
         className="w-full relative z-10 px-6"
       >
         <motion.div variants={itemVariant} className="flex items-center justify-center gap-2 mb-8">
-          <motion.span 
+          <motion.span
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="w-1.5 h-1.5 rounded-full bg-accent"
@@ -120,7 +130,7 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p variants={itemVariant} className="text-[18px] md:text-[21px] text-text-2 max-w-[620px] mx-auto leading-relaxed mb-14 opacity-90 font-medium">
-          I craft <span className="text-text-1 font-bold underline decoration-accent/30 underline-offset-4">stunning visuals</span> and <span className="text-text-1 font-bold">user-friendly experiences</span> that <span className="text-text-1 font-bold italic">help brands stand out</span> and connect with <span className="text-text-1 font-bold">their audience</span>.
+          UI/UX Designer & Full-Stack Developer helping <span className="text-text-1 font-bold">startups, agencies, and e-commerce brands</span> build <span className="text-text-1 font-bold underline decoration-accent/30 underline-offset-4">pixel-perfect digital products</span> <span className="text-text-1 font-bold italic">fast delivery</span>, clean code, <span className="text-text-1 font-bold">zero revisions drama</span>
         </motion.p>
 
         <motion.div variants={itemVariant} className="flex flex-wrap items-center justify-center gap-6">
@@ -130,7 +140,8 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             className="bg-text-1 text-white px-10 py-5 rounded-full text-[15px] font-bold hover:bg-black transition-all duration-300 flex items-center gap-2 shadow-2xl shadow-black/10"
           >
-            Explore Projects
+
+            View My Work
           </motion.a>
           <motion.a
             href="#contact"
@@ -138,7 +149,7 @@ const Hero = () => {
             whileTap={{ scale: 0.98 }}
             className="bg-white border-2 border-black/5 text-text-1 px-10 py-5 rounded-full text-[15px] font-bold hover:bg-black/5 transition-all duration-300 flex items-center gap-2"
           >
-            Start a Conversation
+            Let's Talk First
           </motion.a>
         </motion.div>
       </motion.div>
@@ -161,33 +172,71 @@ const SLIDES = [
   {
     id: 'slide-1',
     title: 'frontend dev',
-    imageUrl: farhanPic,
+    description: 'Performant, responsive interfaces that come alive with smooth animations.',
+    imageUrl: rugbySrc,
+    icon: Code
   },
   {
     id: 'slide-2',
     title: 'backend dev',
-    imageUrl:
-      'https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description: 'Scalable and secure server-side logic and database architecture.',
+    imageUrl: techWeckSrc,
+    icon: Server
   },
   {
     id: 'slide-3',
     title: 'UI UX design',
-    imageUrl:
-      'https://images.unsplash.com/photo-1688733720228-4f7a18681c4f?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description: 'Wireframes to pixel-perfect handoffs that pass dev QA first time.',
+    imageUrl: diamondSrc,
+    icon: PenTool
   },
-  // {
-  //   id: 'slide-4',
-  //   title: 'video editing',
-  //   imageUrl:
-  //     'https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  // },
   {
     id: 'slide-5',
     title: 'SEO optimization',
-    imageUrl:
-      'https://images.unsplash.com/photo-1726066012698-bb7a3abce786?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    description: 'Data-driven strategies to boost visibility and organic search rankings.',
+    imageUrl: oneDirhamSrc,
+    icon: Search
   },
 ]
+
+const ServiceItem = ({ slide, index }) => {
+  const { activeSlide, changeSlide } = useHoverSliderContext()
+  const isActive = activeSlide === index
+  const Icon = slide.icon
+
+  return (
+    <div
+      className="group cursor-pointer py-4 border-b border-black/[0.05] last:border-0"
+      onMouseEnter={() => changeSlide(index)}
+    >
+      <div className="flex items-center gap-4">
+        <span className={`transition-colors duration-300 ${isActive ? 'text-accent' : 'text-text-2'}`}>
+          <Icon size={24} />
+        </span>
+        <TextStaggerHover
+          index={index}
+          className={`text-[clamp(20px,4vw,38px)] font-bold uppercase tracking-[-0.03em] ${isActive ? 'text-text-1 underline decoration-accent/30 underline-offset-8' : 'text-text-2'}`}
+          text={slide.title}
+        />
+      </div>
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="text-[15px] text-text-2 mt-4 ml-[40px] leading-relaxed max-w-[400px]">
+              {slide.description}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const ServicesSlider = () => {
   return (
@@ -196,17 +245,12 @@ const ServicesSlider = () => {
         <div className="max-w-[1200px] mx-auto">
           <SectionLabel text="My Services" />
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10 md:gap-16">
-            <div className="flex flex-col space-y-3 md:space-y-5">
+            <div className="flex flex-col space-y-2 md:space-y-4 w-full md:w-1/2">
               {SLIDES.map((slide, index) => (
-                <TextStaggerHover
-                  key={slide.id}
-                  index={index}
-                  className="cursor-pointer text-[clamp(20px,4vw,38px)] font-bold uppercase tracking-[-0.03em] text-text-1"
-                  text={slide.title}
-                />
+                <ServiceItem key={slide.id} slide={slide} index={index} />
               ))}
             </div>
-            <HoverSliderImageWrap className="w-full md:w-[480px] aspect-[4/3] rounded-card overflow-hidden flex-shrink-0">
+            <HoverSliderImageWrap className="w-full md:w-[480px] aspect-[4/3] rounded-card overflow-hidden flex-shrink-0 shadow-2xl shadow-black/10">
               {SLIDES.map((slide, index) => (
                 <div key={slide.id}>
                   <HoverSliderImage
@@ -214,7 +258,7 @@ const ServicesSlider = () => {
                     imageUrl={slide.imageUrl}
                     src={slide.imageUrl}
                     alt={slide.title}
-                    className="w-full h-auto object-contain rounded-card"
+                    className="w-full h-auto object-cover rounded-card"
                     loading="eager"
                     decoding="async"
                   />
@@ -234,44 +278,84 @@ const PROJECTS = [
   {
     id: 'uiux-1',
     category: 'UI/UX Design',
-    tag: 'Figma · Mobile App',
-    title: 'Banking App Redesign',
-    description: 'Complete UI/UX overhaul for a modern banking experience — focused on accessibility, trust, and speed.',
-    link: 'https://figma.com',
-    linkLabel: 'View on Figma',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop',
+    tag: 'Figma · Marketing Page',
+    title: 'Digital Marketing Agency Landing Page',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Marketing agencies struggle to show off complex campaign metrics and capture high-intent enterprise leads.<br />
+        <span className="font-bold text-text-1">Solution:</span> Redesigned the page using high-impact typography, structured case results, and context-aware conversion forms.<br />
+        <span className="font-bold text-text-1">Result:</span> Increased inbound inquiries by 24% and boosted user session duration by 35%.
+      </>
+    ),
+    link: 'https://www.figma.com/proto/4dHiIHo8ojlAHdDBMmzv2C/Digital-marketing-Agency-Landing-Page--Community-?node-id=1-312&t=dmDKm5G4skVGWpOi-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1',
+    linkLabel: 'View Full Case Study',
+    image: digitalMarketingSrc,
     featured: true,
   },
   {
     id: 'uiux-2',
     category: 'UI/UX Design',
-    tag: 'Figma · Dashboard',
-    title: 'E-Commerce Dashboard',
-    description: 'Admin panel with real-time analytics, inventory management, and clean data visualization.',
-    link: 'https://dribbble.com',
-    linkLabel: 'View on Dribbble',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1426&auto=format&fit=crop',
+    tag: 'Figma · Editorial & Eng',
+    title: 'MarcVista Website Landing Page',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Standard SaaS layouts failed to project the brand's standard of architectural rigor.<br />
+        <span className="font-bold text-text-1">Solution:</span> Crafted an editorial design layout that operates at the intersection of rigorous engineering and high-end visual layout.<br />
+        <span className="font-bold text-text-1">Result:</span> Formulated competitive advantages for enterprise brands demanding absolute precision.
+      </>
+    ),
+    link: 'https://www.figma.com/proto/ZQKCt3KLCFGDsflu2fN1go/marcvista--revamp?node-id=26-64&t=PUNeZMXBWXC8umkR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1',
+    linkLabel: 'View Full Case Study',
+    image: marcVistaSrc,
   },
   {
     id: 'uiux-3',
     category: 'UI/UX Design',
-    tag: 'Adobe XD · SaaS',
-    title: 'SaaS Landing Page',
-    description: 'Conversion-optimized landing page design for a project management tool.',
-    link: 'https://behance.net',
-    linkLabel: 'View on Behance',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1470&auto=format&fit=crop',
+    tag: 'Figma · E-Commerce',
+    title: 'Scentora Perfumes Landing Page Redesign',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Luxury fragrance buyers struggled to purchase online without smelling the product first.<br />
+        <span className="font-bold text-text-1">Solution:</span> Redesigned with visual sensory storytelling, interactive scent notes, and a digital discovery guide.<br />
+        <span className="font-bold text-text-1">Result:</span> 28% increase in direct-to-consumer sales and lowered discovery-related returns.
+      </>
+    ),
+    link: 'https://stitch.withgoogle.com/projects/13687823106060746206',
+    linkLabel: 'View Full Case Study',
+    image: mystPerfumesSrc,
+  },
+  {
+    id: 'uiux-4',
+    category: 'UI/UX Design',
+    tag: 'Figma · Service Platform',
+    title: 'Architectural Reliable | Plumbing & HVAC',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Traditional home service websites fail to project modern professionalism and struggle with booking conversion.<br />
+        <span className="font-bold text-text-1">Solution:</span> Designed a premium service platform with upfront pricing structures, real-time emergency dispatch alerts, and conversion-focused booking forms.<br />
+        <span className="font-bold text-text-1">Result:</span> Boosted prospective digital quote inquiries by 32% and established elite local branding authority.
+      </>
+    ),
+    link: 'https://stitch.withgoogle.com/preview/7854888921496668012?node-id=c97344ee66804590bc651c4efda1ed76',
+    linkLabel: 'View Full Case Study',
+    image: architecturalReliableSrc,
   },
   // --- Web Design ---
   {
     id: 'web-1',
     category: 'Web Design',
-    tag: 'React · Tailwind CSS',
-    title: 'Elite Rugby',
-    description: 'High-performance landing page with dynamic animations and a bold dark-mode design system.',
-    link: 'https://elite-rugby-website.vercel.app/',
-    linkLabel: 'View Live',
-    image: rugbySrc,
+    tag: 'HTML · CSS · Bootstrap',
+    title: 'Diamond Living | Real Estate Website',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Property listings were hard to navigate on mobile.<br />
+        <span className="font-bold text-text-1">Solution:</span> Developed an elegant, fully responsive real estate platform.<br />
+        <span className="font-bold text-text-1">Result:</span> Mobile inquiries increased by over 30%.
+      </>
+    ),
+    link: 'https://diamondliving.ae/',
+    linkLabel: 'See Live Project',
+    image: diamondSrc,
     featured: true,
   },
   {
@@ -279,29 +363,47 @@ const PROJECTS = [
     category: 'Web Design',
     tag: 'HTML · CSS · JavaScript · Bootstrap',
     title: 'Techweck | IT Solutions Company',
-    description: 'A minimal, Bootstrap-inspired creative agency site with smooth scroll animations.',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Cluttered layout causing high bounce rates.<br />
+        <span className="font-bold text-text-1">Solution:</span> Minimal, Bootstrap-inspired agency site with smooth scrolling.<br />
+        <span className="font-bold text-text-1">Result:</span> Improved time-on-page by 45% and generated more leads.
+      </>
+    ),
     link: 'https://www.techweck.com/',
-    linkLabel: 'View Live',
+    linkLabel: 'See Live Project',
     image: techWeckSrc,
   },
   {
     id: 'web-3',
     category: 'Web Design',
-    tag: 'HTML · CSS · Bootstrap',
-    title: 'Diamond Living | Real Estate Website',
-    description: 'An elegant and modern real estate website with a seamless user experience.',
-    link: 'https://diamondliving.ae/',
-    linkLabel: 'View Live',
-    image: diamondSrc,
+    tag: 'React · Tailwind CSS',
+    title: 'Elite Rugby',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Outdated web presence failing to attract sponsors.<br />
+        <span className="font-bold text-text-1">Solution:</span> High-performance, dark-mode site with dynamic animations.<br />
+        <span className="font-bold text-text-1">Result:</span> Increased engagement and secured two major sponsors.
+      </>
+    ),
+    link: 'https://elite-rugby-website.vercel.app/',
+    linkLabel: 'See Live Project',
+    image: rugbySrc,
   },
   {
     id: 'web-4',
     category: 'Web Design',
     tag: 'HTML · CSS · Bootstrap',
-    title: '1Dirham | Digital Marketing Agency landin page',
-    description: 'Dubai-based Digital Marketing Management focused on driving measurable growth. We turn clicks into commercial success through strategy, execution, and performance-led results.',
+    title: '1Dirham | Digital Marketing Agency',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Generic agency site lacked a unique selling proposition.<br />
+        <span className="font-bold text-text-1">Solution:</span> Designed a landing page emphasizing measurable growth.<br />
+        <span className="font-bold text-text-1">Result:</span> Lifted client conversion rate by 15%.
+      </>
+    ),
     link: 'https://1dirham.ae/',
-    linkLabel: 'View Live',
+    linkLabel: 'See Live Project',
     image: oneDirhamSrc,
   },
   {
@@ -309,31 +411,34 @@ const PROJECTS = [
     category: 'Web Design',
     tag: 'HTML · CSS · Bootstrap',
     title: 'Shield Group | Waterproofing & Insulation',
-    description: 'A leading repair and maintenance company in the UAE, dedicated to creating clean and healthy environments for residential and commercial properties.',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Hard for customers to request quotes online.<br />
+        <span className="font-bold text-text-1">Solution:</span> Revamped site with clear service pillars and lead forms.<br />
+        <span className="font-bold text-text-1">Result:</span> Online quote requests doubled within two months.
+      </>
+    ),
     link: 'https://shieldgroup.ae/',
-    linkLabel: 'View Live',
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1470&auto=format&fit=crop',
+    linkLabel: 'See Live Project',
+    image: shieldGroupSrc,
   },
   {
     id: 'web-6',
     category: 'Web Design',
     tag: 'HTML · CSS · Bootstrap',
     title: 'Tareeq Al Suraa | Technical Services',
-    description: 'Expert solutions for AC installation, plumbing, electrical work, and general maintenance services across the UAE.',
+    description: (
+      <>
+        <span className="font-bold text-text-1">Problem:</span> Fragmented service pages confused visitors.<br />
+        <span className="font-bold text-text-1">Solution:</span> Consolidated services into a unified digital platform.<br />
+        <span className="font-bold text-text-1">Result:</span> Improved user journey and organic search visibility.
+      </>
+    ),
     link: 'https://tareeqalsuraa.com/',
-    linkLabel: 'View Live',
+    linkLabel: 'See Live Project',
     image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1469&auto=format&fit=crop',
   },
-  {
-    id: 'web-7',
-    category: 'Web Design',
-    tag: 'React · Tailwind CSS',
-    title: 'Architectural Reliable | Plumbing & HVAC',
-    description: 'Specialized technical services providing reliable plumbing, heating, and air conditioning solutions for modern architecture.',
-    link: 'https://architecturalreliableservices.netlify.app/',
-    linkLabel: 'View Live',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1470&auto=format&fit=crop',
-  },
+
 ]
 
 const TABS = ['All', 'UI/UX Design', 'Web Design']
@@ -411,11 +516,11 @@ const Work = () => {
                   <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                 </a>
               </div>
-              <div className="w-full md:flex-1 aspect-[16/9] bg-[#E0E0E5] rounded-img overflow-hidden">
+              <div className="w-full md:flex-1 aspect-[16/9] bg-[#E0E0E5] rounded-img overflow-hidden relative">
                 <img
                   src={featured.image}
                   alt={featured.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
                 />
               </div>
             </motion.div>
@@ -433,11 +538,11 @@ const Work = () => {
                   viewport={{ once: true }}
                   className="bg-surface rounded-card p-7 md:p-8 hover:scale-[1.01] transition-transform duration-350 ease-out group"
                 >
-                  <div className="aspect-[4/3] bg-[#E0E0E5] rounded-[12px] mb-6 overflow-hidden">
+                  <div className="aspect-[16/9] bg-[#E0E0E5] rounded-[12px] mb-6 overflow-hidden relative">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
                     />
                   </div>
                   <p className="text-[11px] text-text-2 uppercase tracking-wider">{project.tag}</p>
@@ -509,34 +614,41 @@ const About = () => {
         <div className="w-full text-center">
           <SectionLabel text="About Me" />
 
-          <div className="flex flex-col lg:flex-row items-center gap-16 mt-12">
+          <div className="flex flex-col lg:flex-row items-stretch gap-16 mt-12">
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: EASING }}
-              className="w-full lg:w-1/2 rounded-card overflow-hidden bg-surface/50 border border-black/[0.03]"
+              className="w-full lg:w-1/2 rounded-[32px] overflow-hidden bg-[#E0E0E5] border border-black/[0.03] relative min-h-[400px] md:min-h-[500px] lg:min-h-0"
             >
               <img
                 src={farhanPic}
-                alt="Farhan Workspace"
-                className="w-full h-auto object-contain max-h-[600px] mx-auto"
+                alt="Farhan Professional Headshot"
+                className="absolute inset-0 w-full h-full object-cover object-top"
               />
             </motion.div>
 
-            <div className="w-full lg:w-1/2 text-left">
-              <div className="flex flex-wrap gap-8 md:gap-12 mb-12">
-                <Stat number="50+" label="Projects shipped" />
-                <Stat number="4" label="Years experience" />
-                <Stat number="8" label="Happy clients" />
-              </div>
-
-              <div className="space-y-6 text-[19px] text-text-2 leading-[1.75]">
+            <div className="w-full lg:w-1/2 text-left flex flex-col justify-center py-4">
+              <h2 className="text-[40px] md:text-[56px] font-bold text-text-1 tracking-tight leading-tight mb-8">
+                Designer who <br/> ships <span className="text-accent italic font-serif">code</span>
+              </h2>
+              <div className="space-y-6 text-[17px] md:text-[19px] text-text-2 leading-[1.75]">
                 <p>
-                  I'm Farhan, a UI/UX and Frontend Designer who believes the best interfaces are the ones you don't notice. Clean, purposeful, and built to last.
+                  I'm a <strong className="text-text-1 font-semibold">UI/UX Designer and Full-Stack Developer</strong> based in Pakistan with 4 years of experience building digital products for clients across the Middle East, Europe, and South Asia.
                 </p>
                 <p>
-                  Currently available for freelance projects and full-time opportunities.
+                  I believe the best interfaces are <strong className="text-text-1 font-semibold">invisible</strong> — they guide users to their goal without friction. I design in Figma, build in React, and obsess over every pixel in between.
+                </p>
+
+                <div className="flex flex-wrap gap-8 md:gap-12 py-6">
+                  <Stat number="50+" label="Projects shipped" />
+                  <Stat number="4" label="Years experience" />
+                  <Stat number="100%" label="Client Retention" />
+                </div>
+
+                <p>
+                  Currently available for <strong className="text-text-1 font-semibold">freelance projects and full-time remote opportunities.</strong>
                 </p>
               </div>
             </div>
@@ -549,43 +661,144 @@ const About = () => {
   )
 }
 
+const Process = () => {
+  const steps = [
+    {
+      number: "01",
+      title: "Discovery Call",
+      desc: "30-minute call to understand your goals, audience, and timeline. I ask the questions your previous dev forgot to ask."
+    },
+    {
+      number: "02",
+      title: "Proposal & Scope",
+      desc: "Clear deliverables, timeline, and fixed pricing. No surprise invoices. You approve before any pixel is drawn."
+    },
+    {
+      number: "03",
+      title: "Design & Build",
+      desc: "Daily updates via Loom or Slack. You see progress in real time — no black-box development cycles."
+    },
+    {
+      number: "04",
+      title: "Launch & Support",
+      desc: "Deployment, handoff, and 2 weeks of free support. I don't disappear after I send the invoice."
+    }
+  ];
+
+  return (
+    <section id="process" className="py-16 md:py-[140px] bg-white px-6">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="mb-16">
+          <SectionLabel text="How It Works" />
+          <h2 className="text-[40px] md:text-[56px] font-bold text-text-1 tracking-tight leading-tight mt-6">
+            From brief to launch in <span className="text-accent italic font-serif">days</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 border-y border-black/[0.04]">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: EASING }}
+              className="p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-black/[0.04] last:border-b-0 lg:last:border-r-0"
+            >
+              <div className="text-[48px] md:text-[64px] font-bold text-accent/30 mb-6 font-serif leading-none">
+                {step.number}
+              </div>
+              <h3 className="text-[20px] md:text-[22px] font-bold text-text-1 mb-4">
+                {step.title}
+              </h3>
+              <p className="text-[16px] text-text-2 leading-[1.7]">
+                {step.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const Skills = () => {
-  const skills = [
-    { name: 'Figma', category: 'Design & Prototyping' },
-    { name: 'Adobe XD', category: 'Design & Prototyping' },
-    { name: 'Photoshop', category: 'Design & Branding' },
-    { name: 'Illustrator', category: 'Design & Branding' },
-    { name: 'React.js', category: 'Frontend Development' },
-    { name: 'Tailwind CSS', category: 'Frontend Development' },
-    { name: 'Framer', category: 'Interaction Design' },
-    { name: 'Next.js', category: 'Frontend Development' },
-    { name: 'JavaScript (ES6+)', category: 'Frontend Development' },
-    { name: 'TypeScript', category: 'Frontend Development' },
-    { name: 'Three.js', category: '3D & Graphics' },
-    { name: 'Spline 3D', category: '3D & Graphics' },
-    { name: 'Webflow', category: 'No-Code Development' },
+  const skillCategories = [
+    {
+      title: 'Design & Prototyping',
+      icon: PenTool,
+      skills: [
+        { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg' },
+        { name: 'Google Stitch', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg' },
+        { name: 'Framer', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg' },
+        { name: 'Adobe XD', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/xd/xd-plain.svg' },
+      ]
+    },
+    {
+      title: 'Frontend Engineering',
+      icon: Code,
+      skills: [
+        { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+        { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg' },
+        { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+        { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+      ]
+    },
+    {
+      title: 'Backend Engineering',
+      icon: Server,
+      skills: [
+        { name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+        { name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
+        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+      ]
+    },
+    {
+      title: 'Creative & AI',
+      icon: Search,
+      skills: [
+        { name: 'AI Websites', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg' },
+        { name: 'Webflow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webflow/webflow-original.svg' },
+        { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg' },
+      ]
+    }
   ]
 
   return (
     <section id="skills" className="py-16 md:py-[140px] px-6 bg-white">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="max-w-[640px] mx-auto">
-          <SectionLabel text="Skills & Tools" />
-          <div className="mt-8">
-            {skills.map((skill, index) => (
+        <SectionLabel text="Skills & Tools" />
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
+          {skillCategories.map((category, index) => {
+            const Icon = category.icon;
+            return (
               <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 10 }}
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: EASING }}
-                className="border-b border-black/[0.06] py-5 flex justify-between items-center"
+                transition={{ duration: 0.5, delay: index * 0.1, ease: EASING }}
+                className="flex flex-col"
               >
-                <span className="text-[17px] text-text-1 font-medium">{skill.name}</span>
-                <span className="text-[13px] text-text-2">{skill.category}</span>
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-black/[0.06]">
+                  <span className="text-accent">
+                    <Icon size={20} strokeWidth={2.5} />
+                  </span>
+                  <h3 className="text-[19px] font-bold text-text-1">{category.title}</h3>
+                </div>
+                <div className="flex flex-col gap-4">
+                  {category.skills.map((skill) => (
+                    <div key={skill.name} className="flex items-center gap-4 group cursor-default">
+                      <div className="w-[42px] h-[42px] rounded-[12px] bg-surface flex items-center justify-center border border-black/[0.04] group-hover:scale-110 transition-transform duration-300">
+                        <img src={skill.icon} alt={skill.name} className="w-[20px] h-[20px] object-contain" />
+                      </div>
+                      <span className="text-[16px] text-text-2 font-medium group-hover:text-text-1 transition-colors duration-300">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
-            ))}
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -594,44 +807,85 @@ const Skills = () => {
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-16 md:py-[140px] bg-surface text-center px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: EASING }}
-        className="max-w-[1200px] mx-auto"
-      >
-        <h2 className="text-[32px] md:text-[52px] font-bold text-text-1 tracking-tight">Let's work together.</h2>
-        <p className="text-[16px] md:text-[19px] text-text-2 mt-4">Open to freelance projects and full-time roles.</p>
-
-        <a
-          href="mailto:farhanaslam1992@gmail.com"
-          className="inline-block mt-12 text-[24px] font-medium text-text-1 underline underline-offset-4 hover:text-accent transition-colors duration-250"
+    <section id="contact" className="py-16 md:py-[140px] bg-white px-6 border-t border-black/[0.04]">
+      <div className="max-w-[1200px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: EASING }}
+          className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start"
         >
-          farhanaslam1992@gmail.com
-        </a>
+          {/* Left Column - Info */}
+          <div className="w-full lg:w-1/2">
+            <h2 className="text-[40px] md:text-[56px] font-bold text-text-1 tracking-tight leading-tight mb-6">
+              Ready to build <span className="text-accent italic font-serif">something great?</span>
+            </h2>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface rounded-full text-[14px] font-medium text-text-1 mb-8 border border-black/[0.04]">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Currently available for projects
+            </div>
+            <p className="text-[17px] md:text-[19px] text-text-2 mb-12 max-w-[420px]">
+              Tell me about your project and I'll get back to you within 24 hours with a proposal and timeline.
+            </p>
+            
+            <div className="space-y-6 mb-12">
+              <a href="mailto:hello@farhanaslam.com" className="flex items-center gap-4 text-[17px] font-medium text-text-1 hover:text-accent transition-colors group">
+                <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-black/[0.04] group-hover:scale-105 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                hello@farhanaslam.com
+              </a>
+              <div className="flex items-center gap-4 text-[15px] text-text-2">
+                <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-black/[0.04] text-[20px]">
+                  ⚡
+                </div>
+                <span>Responded to <strong>20+</strong> client inquiries within 24 hours.</span>
+              </div>
+            </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
-          {[
-            { name: "GitHub", href: "https://github.com/devFarhan3" },
-            { name: "Instagram", href: "https://www.instagram.com/farhanwebstudio/" },
-            { name: "LinkedIn", href: "https://www.linkedin.com/in/m-farhan-aslam/" },
-            { name: "WhatsApp", href: "https://wa.me/923001234567" },
-            { name: "Facebook", href: "https://www.facebook.com/farhan.aslam.5623" }
-          ].map((social) => (
-            <a
-              key={social.name}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[14px] font-medium text-text-2 hover:text-accent transition-colors duration-200"
-            >
-              {social.name}
-            </a>
-          ))}
-        </div>
-      </motion.div>
+            <div className="flex flex-wrap items-center gap-6">
+              {[
+                { name: "GitHub", href: "https://github.com/devFarhan3" },
+                { name: "LinkedIn", href: "https://www.linkedin.com/in/m-farhan-aslam/" },
+                { name: "Instagram", href: "https://www.instagram.com/farhanwebstudio/" },
+                { name: "WhatsApp", href: "https://wa.me/923001234567" },
+              ].map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[14px] font-medium text-text-2 hover:text-accent transition-colors duration-250"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Form */}
+          <div className="w-full lg:w-1/2">
+            <form className="bg-surface p-8 md:p-10 rounded-[24px] border border-black/[0.04] flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Name</label>
+                <input type="text" id="name" placeholder="John Doe" className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Email</label>
+                <input type="email" id="email" placeholder="john@example.com" className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="project" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Project Details</label>
+                <textarea id="project" rows="4" placeholder="Tell me about your project..." className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+              </div>
+              <button type="submit" className="mt-2 w-full bg-text-1 text-white font-semibold py-4 rounded-[12px] hover:bg-accent transition-colors duration-300 text-[16px]">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </motion.div>
+      </div>
     </section>
   )
 }
@@ -684,6 +938,10 @@ export default function App() {
 
         <SectionWrapper id="about">
           <About />
+        </SectionWrapper>
+
+        <SectionWrapper id="process">
+          <Process />
         </SectionWrapper>
 
         <SectionWrapper id="skills">

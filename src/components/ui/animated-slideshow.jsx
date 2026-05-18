@@ -16,7 +16,7 @@ function splitText(text) {
 
 const HoverSliderContext = React.createContext(undefined)
 
-function useHoverSliderContext() {
+export function useHoverSliderContext() {
   const context = React.useContext(HoverSliderContext)
   if (context === undefined) {
     throw new Error(
