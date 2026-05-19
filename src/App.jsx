@@ -31,6 +31,8 @@ import {
 } from './components/ui/animated-slideshow'
 import { GLSLHills } from './components/ui/glsl-hills'
 import Navbar from './components/ui/navbar'
+import { supabase } from './lib/supabase'
+
 
 
 // --- Design System Constants ---
@@ -806,6 +808,59 @@ const Skills = () => {
 }
 
 const Contact = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', project: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('idle') // 'idle' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    // Simple validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.project.trim()) {
+      setSubmitStatus('error')
+      setErrorMessage('Please fill in all fields.')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email.trim())) {
+      setSubmitStatus('error')
+      setErrorMessage('Please provide a valid email address.')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    try {
+      const { error } = await supabase.from('contact_submissions').insert([
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          project_details: formData.project.trim()
+        }
+      ])
+
+      if (error) throw error
+
+      setSubmitStatus('success')
+      setFormData({ name: '', email: '', project: '' })
+    } catch (err) {
+      console.error('Supabase error:', err)
+      setSubmitStatus('error')
+      setErrorMessage(err.message || 'Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <section id="contact" className="py-16 md:py-[140px] bg-white px-6 border-t border-black/[0.04]">
       <div className="max-w-[1200px] mx-auto">
@@ -849,7 +904,7 @@ const Contact = () => {
                 { name: "GitHub", href: "https://github.com/devFarhan3" },
                 { name: "LinkedIn", href: "https://www.linkedin.com/in/m-farhan-aslam/" },
                 { name: "Instagram", href: "https://www.instagram.com/farhanwebstudio/" },
-                { name: "WhatsApp", href: "https://wa.me/923001234567" },
+                { name: "WhatsApp", href: "https://wa.me/923001234567" }
               ].map((link) => (
                 <a
                   key={link.name}
@@ -866,21 +921,73 @@ const Contact = () => {
 
           {/* Right Column - Form */}
           <div className="w-full lg:w-1/2">
-            <form className="bg-surface p-8 md:p-10 rounded-[24px] border border-black/[0.04] flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="bg-surface p-8 md:p-10 rounded-[24px] border border-black/[0.04] flex flex-col gap-6" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Name</label>
-                <input type="text" id="name" placeholder="John Doe" className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors" />
+                <input
+                  type="text"
+                  id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  placeholder="John Doe"
+                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
+                  required
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Email</label>
-                <input type="email" id="email" placeholder="john@example.com" className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors" />
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  placeholder="john@example.com"
+                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
+                  required
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="project" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Project Details</label>
-                <textarea id="project" rows="4" placeholder="Tell me about your project..." className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+                <textarea
+                  id="project"
+                  rows="4"
+                  value={formData.project}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  placeholder="Tell me about your project..."
+                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors resize-none disabled:opacity-50"
+                  required
+                ></textarea>
               </div>
-              <button type="submit" className="mt-2 w-full bg-text-1 text-white font-semibold py-4 rounded-[12px] hover:bg-accent transition-colors duration-300 text-[16px]">
-                Send Message
+
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-green-500/10 border border-green-500/20 text-green-600 rounded-[12px] p-4 text-[14px] text-center font-semibold"
+                >
+                  🎉 Message sent successfully! I'll get back to you within 24 hours.
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-red-500/10 border border-red-500/20 text-red-600 rounded-[12px] p-4 text-[14px] text-center font-semibold"
+                >
+                  ❌ {errorMessage}
+                </motion.div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-2 w-full bg-text-1 text-white font-semibold py-4 rounded-[12px] hover:bg-accent transition-colors duration-300 text-[16px] disabled:opacity-50 cursor-pointer"
+              >
+                {isSubmitting ? 'Sending Message...' : 'Send Message'}
               </button>
             </form>
           </div>
