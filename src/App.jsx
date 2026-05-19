@@ -920,76 +920,120 @@ const Contact = () => {
           </div>
 
           {/* Right Column - Form */}
-          <div className="w-full lg:w-1/2">
-            <form className="bg-surface p-8 md:p-10 rounded-[24px] border border-black/[0.04] flex flex-col gap-6" onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="name" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  placeholder="John Doe"
-                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="email" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  placeholder="john@example.com"
-                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="project" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Project Details</label>
-                <textarea
-                  id="project"
-                  rows="4"
-                  value={formData.project}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  placeholder="Tell me about your project..."
-                  className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors resize-none disabled:opacity-50"
-                  required
-                ></textarea>
-              </div>
-
-              {submitStatus === 'success' && (
+          <div className="w-full lg:w-1/2 min-h-[460px] flex flex-col justify-stretch">
+            <AnimatePresence mode="wait">
+              {submitStatus === 'success' ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-green-500/10 border border-green-500/20 text-green-600 rounded-[12px] p-4 text-[14px] text-center font-semibold"
+                  key="success-card"
+                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: EASING }}
+                  className="bg-surface p-8 md:p-12 rounded-[24px] border border-black/[0.04] flex flex-col items-center justify-center text-center gap-6 shadow-xl shadow-black/[0.02] flex-1"
                 >
-                  🎉 Message sent successfully! I'll get back to you within 24 hours.
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
+                    className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center text-[40px] shadow-[0_4px_20px_rgba(34,197,94,0.15)]"
+                  >
+                    🎉
+                  </motion.div>
+                  <div className="space-y-3">
+                    <h3 className="text-[24px] font-bold text-text-1 tracking-tight">Message Received!</h3>
+                    <p className="text-[15px] text-text-2 max-w-[340px] leading-relaxed">
+                      Thank you for reaching out! I will review your details and get back to you within <span className="text-accent font-semibold">24 hours</span>.
+                    </p>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setSubmitStatus('idle')}
+                    className="mt-4 px-6 py-2.5 rounded-full border border-black/[0.08] text-[13px] text-text-2 hover:text-text-1 hover:border-black/20 font-medium transition-all cursor-pointer"
+                  >
+                    Send another message
+                  </motion.button>
                 </motion.div>
-              )}
-
-              {submitStatus === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-red-500/10 border border-red-500/20 text-red-600 rounded-[12px] p-4 text-[14px] text-center font-semibold"
+              ) : (
+                <motion.form
+                  key="contact-form"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                  className="bg-surface p-8 md:p-10 rounded-[24px] border border-black/[0.04] flex flex-col gap-6"
+                  onSubmit={handleSubmit}
                 >
-                  ❌ {errorMessage}
-                </motion.div>
-              )}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="name" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      placeholder="John Doe"
+                      className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      placeholder="john@example.com"
+                      className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors disabled:opacity-50"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="project" className="text-[13px] font-semibold text-text-1 uppercase tracking-wider">Project Details</label>
+                    <textarea
+                      id="project"
+                      rows="4"
+                      value={formData.project}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      placeholder="Tell me about your project..."
+                      className="w-full bg-white border border-black/[0.08] rounded-[12px] px-4 py-3.5 text-[16px] focus:outline-none focus:border-accent transition-colors resize-none disabled:opacity-50"
+                      required
+                    ></textarea>
+                  </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="mt-2 w-full bg-text-1 text-white font-semibold py-4 rounded-[12px] hover:bg-accent transition-colors duration-300 text-[16px] disabled:opacity-50 cursor-pointer"
-              >
-                {isSubmitting ? 'Sending Message...' : 'Send Message'}
-              </button>
-            </form>
+                  {submitStatus === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-red-500/10 border border-red-500/20 text-red-600 rounded-[12px] p-4 text-[14px] text-center font-semibold"
+                    >
+                      ❌ {errorMessage}
+                    </motion.div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="mt-2 w-full bg-text-1 text-white font-semibold py-4 rounded-[12px] hover:bg-accent transition-colors duration-300 text-[16px] disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
         </motion.div>
       </div>
