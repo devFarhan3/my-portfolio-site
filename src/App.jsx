@@ -32,6 +32,7 @@ import {
 import { GLSLHills } from './components/ui/glsl-hills'
 import Navbar from './components/ui/navbar'
 import { supabase } from './lib/supabase'
+import { Analytics } from '@vercel/analytics/react'
 
 
 
@@ -1162,6 +1163,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <Analytics />
 
       {/* Floating WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-[9995] flex items-center group select-none">
