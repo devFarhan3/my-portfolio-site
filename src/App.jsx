@@ -843,7 +843,7 @@ const Contact = () => {
     setErrorMessage('')
 
     try {
-      const rawEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT || ''
+      const rawEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xkjjnqko'
       const formEndpoint = rawEndpoint.startsWith('http')
         ? rawEndpoint
         : rawEndpoint
