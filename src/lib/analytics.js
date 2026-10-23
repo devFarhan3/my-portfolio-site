@@ -1,16 +1,10 @@
-// Google Analytics 4 (gtag.js). Loads only in production and only when
-// VITE_GA_MEASUREMENT_ID is set (e.g. G-XXXXXXXXXX), so dev traffic never pollutes reports.
-//
-// GA4 "Enhanced measurement" already tracks: page views, scrolls, outbound clicks,
-// file downloads (your CV PDF) and site search. The events below add the conversions
-// that matter for a freelancer: leads, WhatsApp, email and project clicks.
-
-const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
-
-export const analyticsEnabled = Boolean(GA_ID) && import.meta.env.PROD
+// Custom conversion tracking using Google Analytics 4 (gtag.js).
+// Base tag is loaded in index.html with ID G-6XCSRKXF80.
+// GA4 "Enhanced measurement" tracks page views, scrolls, and file downloads.
+// The helpers below add tracking for leads, WhatsApp, email and project clicks.
 
 export function track(eventName, params = {}) {
-  if (!analyticsEnabled || typeof window.gtag !== 'function') return
+  if (typeof window.gtag !== 'function') return
   window.gtag('event', eventName, params)
 }
 
@@ -33,20 +27,8 @@ function classifyLink(a) {
 }
 
 export function initAnalytics() {
-  if (!analyticsEnabled || window.__gaInitialised) return
+  if (window.__gaInitialised) return
   window.__gaInitialised = true
-
-  const s = document.createElement('script')
-  s.async = true
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-  document.head.appendChild(s)
-
-  window.dataLayer = window.dataLayer || []
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments)
-  }
-  window.gtag('js', new Date())
-  window.gtag('config', GA_ID)
 
   // One delegated listener covers every link on the page, including ones React renders later.
   document.addEventListener(
