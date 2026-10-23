@@ -11,6 +11,8 @@ import {
 } from 'lucide-react'
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
 import { Testimonials } from './components/ui/testimonials'
+import { FAQ } from './components/ui/faq'
+import { track } from './lib/analytics'
 import logoSrc from './assets/logo.png'
 import techWeckSrc from './assets/tech-weck.png'
 import diamondSrc from './assets/diamond.png'
@@ -127,6 +129,7 @@ const Hero = () => {
         </motion.div>
 
         <motion.h1 variants={itemVariant} className="text-[clamp(44px,9vw,100px)] font-bold leading-[0.9] tracking-[-0.05em] mb-10">
+          <span className="sr-only">Farhan Aslam, UI/UX Designer and Full-Stack Web Developer: </span>
           <span className="text-text-1 block mb-3">Designing</span>
           <WordSlider />
         </motion.h1>
@@ -521,7 +524,7 @@ const Work = () => {
               <div className="w-full md:flex-1 aspect-[16/9] bg-[#E0E0E5] rounded-img overflow-hidden relative">
                 <img
                   src={featured.image}
-                  alt={featured.title}
+                  alt={`${featured.title} - ${featured.category} project by Farhan Aslam`}
                   className="w-full h-full object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
                 />
               </div>
@@ -543,7 +546,7 @@ const Work = () => {
                   <div className="aspect-[16/9] bg-[#E0E0E5] rounded-[12px] mb-6 overflow-hidden relative">
                     <img
                       src={project.image}
-                      alt={project.title}
+                      alt={`${project.title} - ${project.category} project by Farhan Aslam`}
                       className="w-full h-full object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
                     />
                   </div>
@@ -626,7 +629,7 @@ const About = () => {
             >
               <img
                 src={farhanPic}
-                alt="Farhan Professional Headshot"
+                alt="Farhan Aslam, UI/UX designer and full-stack web developer based in Karachi, Pakistan"
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
             </motion.div>
@@ -851,6 +854,7 @@ const Contact = () => {
       if (error) throw error
 
       setSubmitStatus('success')
+      track('generate_lead', { form: 'contact', method: 'supabase' })
       setFormData({ name: '', email: '', project: '' })
     } catch (err) {
       console.error('Supabase error:', err)
@@ -885,11 +889,11 @@ const Contact = () => {
             </p>
 
             <div className="space-y-6 mb-12">
-              <a href="mailto:hello@farhanaslam.com" className="flex items-center gap-4 text-[17px] font-medium text-text-1 hover:text-accent transition-colors group">
+              <a href="mailto:farhanaslam1992@gmail.com" className="flex items-center gap-4 text-[17px] font-medium text-text-1 hover:text-accent transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-black/[0.04] group-hover:scale-105 transition-transform">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                 </div>
-                hello@farhanaslam.com
+                farhanaslam1992@gmail.com
               </a>
               <div className="flex items-center gap-4 text-[15px] text-text-2">
                 <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center border border-black/[0.04] text-[20px]">
@@ -904,7 +908,7 @@ const Contact = () => {
                 { name: "GitHub", href: "https://github.com/devFarhan3" },
                 { name: "LinkedIn", href: "https://www.linkedin.com/in/m-farhan-aslam/" },
                 { name: "Instagram", href: "https://www.instagram.com/farhanwebstudio/" },
-                { name: "WhatsApp", href: "https://wa.me/923001234567" }
+                { name: "WhatsApp", href: "https://wa.me/923152391035" }
               ].map((link) => (
                 <a
                   key={link.name}
@@ -1154,6 +1158,10 @@ export default function App() {
 
         <SectionWrapper id="skills">
           <Skills />
+        </SectionWrapper>
+
+        <SectionWrapper id="faq-wrapper">
+          <FAQ />
         </SectionWrapper>
 
         <SectionWrapper id="contact">

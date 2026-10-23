@@ -1,0 +1,28 @@
+# Farhan Aslam
+
+> Farhan Aslam (also known as Dev Farhan) is a freelance UI/UX designer and full-stack web developer based in Karachi, Pakistan. He has 4+ years of experience building conversion-focused websites for coaches, consultants, SaaS founders, startups, agencies and e-commerce brands in the UAE, Australia, the UK and the USA. Available for freelance projects and full-time remote roles.
+
+## Key facts
+- Role: UI/UX Designer & Full-Stack Web Developer
+- Location: Karachi, Pakistan (works remotely)
+- Experience: 4+ years
+- Design tools: Figma, Adobe XD, Google Stitch, Framer
+- Development: React, Next.js, Tailwind CSS, TypeScript, Bootstrap, PHP, Laravel, Node.js
+- Services: UI/UX design, frontend development, backend development, SEO optimization
+- Response time: within 24 hours
+- Contact: farhanaslam1992@gmail.com
+
+## Links
+- [Portfolio](https://farhanaslam.vercel.app/): projects, services, testimonials, FAQ and contact form
+- [CV (PDF)](https://farhanaslam.vercel.app/M_Farhan_Aslam_ATS_CV.pdf): resume
+- [LinkedIn](https://www.linkedin.com/in/m-farhan-aslam/)
+- [GitHub](https://github.com/devFarhan3)
+- [Instagram](https://www.instagram.com/farhanwebstudio/)
+
+## Selected projects
+- [Diamond Living](https://diamondliving.ae/): real estate website
+- [Techweck](https://www.techweck.com/): IT solutions company website
+- [1Dirham](https://1dirham.ae/): digital marketing agency website
+- [Shield Group](https://shieldgroup.ae/): waterproofing and insulation website
+- [Tareeq Al Suraa](https://tareeqalsuraa.com/): technical services website
+- [Elite Rugby](https://elite-rugby-website.vercel.app/): sports website built with React and Tailwind CSS

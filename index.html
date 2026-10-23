@@ -3,53 +3,65 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO Title -->
-  <title>Dev Farhan | UI/UX Designer & Frontend Developer | Figma | Adobe XD | Frontend Designer</title>
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
-  <!-- Meta Description -->
+  <!-- Primary SEO -->
+  <title>Farhan Aslam | UI/UX Designer & Web Developer in Karachi</title>
   <meta name="description"
-    content="Dev Farhan — UI/UX Designer & Frontend Developer specializing in Figma, Adobe XD, React, and Tailwind CSS. Crafting minimal, high-performance interfaces and design systems. Available for freelance & full-time roles." />
-
-  <!-- Keywords -->
-  <meta name="keywords"
-    content="Dev Farhan, UI/UX Designer, Frontend Developer, Figma Designer, Adobe XD, Frontend Designer, React Developer, Tailwind CSS, Web Designer, Portfolio, Freelance Designer, Design Systems, User Interface, User Experience" />
-
-  <!-- Author -->
+    content="UI/UX designer & full-stack developer in Karachi. I build conversion-focused Figma, React & Next.js websites for coaches, consultants and SaaS founders." />
   <meta name="author" content="Farhan Aslam" />
-
-  <!-- Robots -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Dev Farhan | UI/UX Designer & Frontend Developer" />
-  <meta property="og:description"
-    content="UI/UX Designer & Frontend Developer specializing in Figma, Adobe XD, React, and Tailwind CSS. Crafting minimal, high-performance interfaces." />
-  <meta property="og:image" content="/og-image.png" />
-  <meta property="og:url" content="https://devfarhan.com" />
-  <meta property="og:site_name" content="Dev Farhan Portfolio" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Dev Farhan | UI/UX Designer & Frontend Developer" />
-  <meta name="twitter:description"
-    content="UI/UX Designer & Frontend Developer specializing in Figma, Adobe XD, React, and Tailwind CSS." />
-  <meta name="twitter:image" content="/og-image.png" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://devfarhan.com" />
-
-  <!-- Theme Color -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="%SITE_URL%/" />
   <meta name="theme-color" content="#D4A853" />
+
+  <!-- Geo (local / regional relevance) -->
+  <meta name="geo.region" content="PK-SD" />
+  <meta name="geo.placename" content="Karachi" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Farhan Aslam Portfolio" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="%SITE_URL%/" />
+  <meta property="og:title" content="Farhan Aslam | UI/UX Designer & Web Developer" />
+  <meta property="og:description"
+    content="Conversion-focused websites for coaches, consultants and SaaS founders. Figma design, React & Next.js development, SEO-ready builds." />
+  <meta property="og:image" content="%SITE_URL%/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Farhan Aslam - UI/UX Designer and Full-Stack Web Developer" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Farhan Aslam | UI/UX Designer & Web Developer" />
+  <meta name="twitter:description"
+    content="Conversion-focused websites for coaches, consultants and SaaS founders. Figma design, React & Next.js development." />
+  <meta name="twitter:image" content="%SITE_URL%/og-image.png" />
+  <meta name="twitter:image:alt" content="Farhan Aslam - UI/UX Designer and Full-Stack Web Developer" />
+
+  <!-- Performance: fonts loaded here instead of CSS @import (non-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
+  <!-- Structured data (JSON-LD) injected at build time from src/data/seo.js -->
+  <!--SEO_JSONLD-->
 </head>
 
 <body>
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
   <div id="root"></div>
+  <!-- Crawler fallback for clients without JavaScript, injected at build time -->
+  <!--SEO_NOSCRIPT-->
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
