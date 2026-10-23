@@ -33,7 +33,7 @@ import {
 } from './components/ui/animated-slideshow'
 import { GLSLHills } from './components/ui/glsl-hills'
 import Navbar from './components/ui/navbar'
-import { supabase } from './lib/supabase'
+
 
 
 
@@ -843,21 +843,42 @@ const Contact = () => {
     setErrorMessage('')
 
     try {
-      const { error } = await supabase.from('contact_submissions').insert([
-        {
+      const rawEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT || ''
+      const formEndpoint = rawEndpoint.startsWith('http')
+        ? rawEndpoint
+        : rawEndpoint
+          ? `https://formspree.io/f/${rawEndpoint}`
+          : ''
+
+      if (!formEndpoint) {
+        throw new Error('Contact form endpoint is awaiting configuration. In the meantime, please click the email link on the left or reach out directly at farhanaslam1992@gmail.com!')
+      }
+
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim(),
-          project_details: formData.project.trim()
-        }
-      ])
+          message: formData.project.trim(),
+          _replyto: formData.email.trim(),
+          _subject: `New Portfolio Lead from ${formData.name.trim()}`
+        })
+      })
 
-      if (error) throw error
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data?.error || 'Failed to send message. Please email directly at farhanaslam1992@gmail.com.')
+      }
 
       setSubmitStatus('success')
-      track('generate_lead', { form: 'contact', method: 'supabase' })
+      track('generate_lead', { form: 'contact', method: 'formspree' })
       setFormData({ name: '', email: '', project: '' })
     } catch (err) {
-      console.error('Supabase error:', err)
+      console.error('Contact submission error:', err)
       setSubmitStatus('error')
       setErrorMessage(err.message || 'Failed to send message. Please try again.')
     } finally {
